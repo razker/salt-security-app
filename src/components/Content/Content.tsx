@@ -5,7 +5,6 @@ import { useState } from "react";
 import { RequestDto, ResponseDto } from "../ApiInfo/types";
 import ColumnBox from "../ColumnBox/ColumnBox";
 import ApiDetalis from "../ApiDetalis/ApiDetalis";
-import styles from "./Content.module.css";
 
 type ContentProps = {
   request: RequestDto;

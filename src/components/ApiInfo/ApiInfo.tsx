@@ -1,5 +1,4 @@
 import { RequestDto, ResponseDto } from "./types";
-import styles from "./ApiInfo.module.css";
 import ColumnBox from "../ColumnBox/ColumnBox";
 import Header from "../Header/Header";
 import Content from "../Content/Content";

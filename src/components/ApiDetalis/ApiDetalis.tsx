@@ -38,7 +38,7 @@ const ApiDetalis = ({ data }: ApiDetalisProps) => {
 
   useEffect(() => {
     setCurrentData(data);
-  }, []);
+  }, [data]);
 
   const filterdData = useMemo(() => {
     let result = {} as any;
