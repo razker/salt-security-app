@@ -70,7 +70,7 @@ const ApiDetalis = ({ data }: ApiDetalisProps) => {
   }, [filterObject, currentData]);
 
   const handleFilter = (filterText: string, filterPiiOnly: boolean) => {
-    setFilterObject({ filterText, filterPiiOnly });
+    setFilterObject({ filterText: filterText.toLowerCase(), filterPiiOnly });
   };
 
   const updateField = (
