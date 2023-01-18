@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Salt Secuirity Home Assignment By Raz Kerman
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app was made for private use only.
 
 ## Available Scripts
 
@@ -44,4 +44,5 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
 # salt-security-app
