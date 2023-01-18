@@ -48,7 +48,8 @@ const ApiDetalis = ({ data }: ApiDetalisProps) => {
       currentData?.[dataType]?.forEach((element: any) => {
         if (
           filterObject.filterText !== "" &&
-          element.name === filterObject.filterText &&
+          (element.name === filterObject.filterText ||
+            element.type === filterObject.filterText) &&
           (!filterObject.filterPiiOnly ||
             (filterObject.filterPiiOnly &&
               element.pii === filterObject.filterPiiOnly))
