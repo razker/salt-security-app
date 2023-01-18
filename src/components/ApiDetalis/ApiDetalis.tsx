@@ -14,6 +14,20 @@ type FilterOptions = {
   filterPiiOnly: boolean;
 };
 
+const tableRowMap: Record<string, string> = {
+  name: "NAME",
+  pii: "PII",
+  masked: "MASKED",
+  type: "TYPE",
+};
+
+const dataSubjectMap: Record<string, string> = {
+  urlParams: "URL Parameters",
+  queryParams: "Query Parameters",
+  headers: "Headrs",
+  body: "Body",
+};
+
 const ApiDetalis = ({ data }: ApiDetalisProps) => {
   const [filterObject, setFilterObject] = useState<FilterOptions>({
     filterText: "",
@@ -54,24 +68,24 @@ const ApiDetalis = ({ data }: ApiDetalisProps) => {
     return result;
   }, [filterObject, currentData]);
 
-  const handleFilterdText = (filterText: string, filterPiiOnly: boolean) => {
+  const handleFilter = (filterText: string, filterPiiOnly: boolean) => {
     setFilterObject({ filterText, filterPiiOnly });
   };
 
   const updateField = (
-    dataTypeToUpdate: string,
+    dataSubjectToUpdate: string,
     name: string,
     subDataTypeToUpdae: string,
     dataToUpdate: any
   ) => {
     let newCurrentData = {} as any;
 
-    Object.keys(currentData).forEach((dataType) => {
-      if (dataType !== dataTypeToUpdate) {
-        newCurrentData[dataType] = currentData[dataType];
+    Object.keys(currentData).forEach((dataSubject) => {
+      if (dataSubject !== dataSubjectToUpdate) {
+        newCurrentData[dataSubject] = currentData[dataSubject];
       } else {
         let newDataType = [] as any;
-        currentData?.[dataType]?.forEach((element: any) => {
+        currentData?.[dataSubject]?.forEach((element: any) => {
           if (element.name === name) {
             newDataType.push({
               ...element,
@@ -81,7 +95,7 @@ const ApiDetalis = ({ data }: ApiDetalisProps) => {
             newDataType.push(element);
           }
         });
-        newCurrentData[dataType] = newDataType;
+        newCurrentData[dataSubject] = newDataType;
       }
     });
 
@@ -90,8 +104,13 @@ const ApiDetalis = ({ data }: ApiDetalisProps) => {
 
   return (
     <ColumnBox maxHeight className={styles.apiDetailsContainer}>
-      <FilterBar handleFilter={handleFilterdText} />
-      <Table data={filterdData} dataChangeHandler={updateField} />
+      <FilterBar handleFilter={handleFilter} />
+      <Table
+        data={filterdData}
+        dataChangeHandler={updateField}
+        tableRowMap={tableRowMap}
+        dataSubjectMap={dataSubjectMap}
+      />
     </ColumnBox>
   );
 };

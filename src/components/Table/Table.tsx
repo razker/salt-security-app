@@ -7,6 +7,8 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 type TableProps = {
   data: any;
+  tableRowMap: Record<string, string>;
+  dataSubjectMap: Record<string, string>;
   dataChangeHandler: (
     dataType: string,
     name: string,
@@ -16,8 +18,9 @@ type TableProps = {
 };
 
 type tableRowProps = {
-  dataType: string;
+  dataSubject: string;
   dataArray: any[];
+  dataSubjectMap: Record<string, string>;
   dataChangeHandler: (
     dataType: string,
     name: string,
@@ -31,20 +34,6 @@ type TableDataProps = {
   data: string;
   onButtonHandle: (dataType: string, data: boolean) => void;
 };
-
-const tableRowMap = {
-  name: "NAME",
-  pii: "PII",
-  masked: "MASKED",
-  type: "TYPE",
-} as any;
-
-const dataTypeMap = {
-  urlParams: "URL Parameters",
-  queryParams: "Query Parameters",
-  headers: "Headrs",
-  body: "Body",
-} as any;
 
 const TableData = ({ subDataType, data, onButtonHandle }: TableDataProps) => {
   return (
@@ -88,9 +77,10 @@ const TableData = ({ subDataType, data, onButtonHandle }: TableDataProps) => {
 };
 
 const TableRow = ({
-  dataType,
+  dataSubject,
   dataArray,
   dataChangeHandler,
+  dataSubjectMap,
 }: tableRowProps) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -109,7 +99,7 @@ const TableRow = ({
 
   return (
     <Fragment>
-      <tr key={dataType}>
+      <tr key={dataSubject}>
         <Button onClick={handleOpenCard}>
           <ArrowCircleRightIcon
             onClick={handleOpenCard}
@@ -125,7 +115,7 @@ const TableRow = ({
           color={"black"}
           fontWeight={500}
         >
-          {dataTypeMap[dataType]}
+          {dataSubjectMap[dataSubject]}
         </Typography>
       </tr>
 
@@ -136,7 +126,12 @@ const TableRow = ({
               <td key={`${row}-${index}`}>
                 <TableData
                   onButtonHandle={(subDataType: string, data: boolean) =>
-                    onButtonHandle(dataType, rowObj["name"], subDataType, data)
+                    onButtonHandle(
+                      dataSubject,
+                      rowObj["name"],
+                      subDataType,
+                      data
+                    )
                   }
                   subDataType={row}
                   data={rowObj[row]}
@@ -149,7 +144,12 @@ const TableRow = ({
   );
 };
 
-const Table = ({ data, dataChangeHandler }: TableProps) => {
+const Table = ({
+  data,
+  dataChangeHandler,
+  tableRowMap,
+  dataSubjectMap,
+}: TableProps) => {
   const theme = useTheme();
 
   return (
@@ -173,11 +173,12 @@ const Table = ({ data, dataChangeHandler }: TableProps) => {
           </tr>
         </thead>
         <tbody>
-          {Object.keys(data).map((dataType, key) => (
+          {Object.keys(data).map((dataSubject, key) => (
             <TableRow
               key={key}
-              dataType={dataType}
-              dataArray={data[dataType]}
+              dataSubject={dataSubject}
+              dataSubjectMap={dataSubjectMap}
+              dataArray={data[dataSubject]}
               dataChangeHandler={dataChangeHandler}
             />
           ))}
